@@ -1,4 +1,66 @@
 document.addEventListener("DOMContentLoaded", function() {
+    // Track if user has interacted (for audio play policy)
+    let userInteracted = false;
+
+    // Mobile Controls
+    function isMobile() {
+        return window.innerWidth <= 700;
+    }
+
+    function triggerKey(keyCode) {
+        if (scoreStopped) return;
+        var e = { keyCode: keyCode };
+        // Simulate the same logic as in document.onkeydown
+        if (keyCode == 38) {
+            var player = document.querySelector(".player");
+            player.classList.add('animateplayer');
+            setTimeout(() => {
+                player.classList.remove('animateplayer');
+            }, 1000);
+        }
+        if (keyCode == 39) {
+            var player = document.querySelector(".player");
+            if (!scoreStopped) {
+                playx = parseInt(window.getComputedStyle(player, null).getPropertyValue('left'));
+                player.style.left = playx + 60 + "px";
+            }
+        }
+        if (keyCode == 37) {
+            var player = document.querySelector(".player");
+            if (!scoreStopped) {
+                playx = parseInt(window.getComputedStyle(player, null).getPropertyValue('left'));
+                player.style.left = (playx - 60) + "px";
+            }
+        }
+    }
+
+    function setupMobileControls() {
+        const leftBtn = document.getElementById('mobile-left');
+        const upBtn = document.getElementById('mobile-up');
+        const rightBtn = document.getElementById('mobile-right');
+        if (leftBtn && upBtn && rightBtn) {
+            leftBtn.addEventListener('touchstart', function(e) { e.preventDefault(); triggerKey(37); });
+            upBtn.addEventListener('touchstart', function(e) { e.preventDefault(); triggerKey(38); });
+            rightBtn.addEventListener('touchstart', function(e) { e.preventDefault(); triggerKey(39); });
+            // Also support click for emulators
+            leftBtn.addEventListener('click', function(e) { e.preventDefault(); triggerKey(37); });
+            upBtn.addEventListener('click', function(e) { e.preventDefault(); triggerKey(38); });
+            rightBtn.addEventListener('click', function(e) { e.preventDefault(); triggerKey(39); });
+        }
+    }
+
+    if (isMobile()) {
+        setupMobileControls();
+        document.querySelector('.mobile-controls').style.display = 'flex';
+    }
+    window.addEventListener('resize', function() {
+        if (isMobile()) {
+            setupMobileControls();
+            document.querySelector('.mobile-controls').style.display = 'flex';
+        } else {
+            document.querySelector('.mobile-controls').style.display = 'none';
+        }
+    });
     let level2Activated = false;
     let level3Activated = false;
     var score = 0;
@@ -15,20 +77,35 @@ document.addEventListener("DOMContentLoaded", function() {
     var background = document.querySelector(".game");
 
 
+    function handleStartClick() {
+        userInteracted = true;
+        reset();
+        setTimeout(() => {
+            audioB.play();
+        }, 100);
+    }
+    function handleRestartClick() {
+        userInteracted = true;
+        reset();
+        setTimeout(() => {
+            audioB.play();
+        }, 100);
+    }
+
+    let startListenerAdded = false;
+    let restartListenerAdded = false;
+
     function gameStart(){
         gamestart.style.visibility = 'visible';
         problem.classList.remove('aniproblem');
         scoreStopped = true; 
         audioB.pause();
-        
-        
-        start.addEventListener("click", function() {
-            reset(); 
-        });
-       
-       
-
-    };
+        // Only add event listener once
+        if (!startListenerAdded) {
+            start.addEventListener("click", handleStartClick);
+            startListenerAdded = true;
+        }
+    }
     gameStart();
    
 
@@ -47,22 +124,18 @@ document.addEventListener("DOMContentLoaded", function() {
         scoreStopped = false;
         gameover.style.visibility = 'hidden';
         updateScore(score);
-        setTimeout(() => {
-            audioB.play();
-        }, 100);
+        // Do not auto-play audio here; play only after user interaction
         problem.classList.add('aniproblem');
-        
-        
-    };
+    }
     function deadplayer(){
-      
-        audioP.play();
+        if (userInteracted) {
+            audioP.play();
+        }
         audioB.pause(); 
         audioB.currentTime = 0; 
         setTimeout(() => {
             audioP.pause(); 
             audioP.currentTime = 0; 
-          
         }, 1000);
         var player = document.querySelector(".player"); 
         player.classList.add('dead');
@@ -70,20 +143,19 @@ document.addEventListener("DOMContentLoaded", function() {
             player.classList.remove('dead');
             player.style.left =  40 + "px";
         }, 1000);
-        
-    };
+    }
     function gameEnd(){
         problem1.classList.remove('aniproblem');
         gameover.style.visibility = 'visible';
         problem.classList.remove('aniproblem');
         scoreStopped = true; 
         deadplayer();
-        
-        
-        restart.addEventListener("click", function() {
-            reset(); 
-        });
-    };
+        // Only add event listener once
+        if (!restartListenerAdded) {
+            restart.addEventListener("click", handleRestartClick);
+            restartListenerAdded = true;
+        }
+    }
 
     function updateScore(scoreValue) {
         var scoreElement = document.querySelector(".scoreCont h1"); 

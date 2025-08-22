@@ -1,240 +1,325 @@
 @import url('https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&display=swap');
 
-
- 
-*{ 
-Margin:0;
-Padding:0;
-Box-sizing: border-box;
-Font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+:root {
+    --main-font: 'Kode Mono', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    --level-width: min(30vw, 220px);
+    --level-height: min(7vw, 60px);
+    --box-width: min(50vw, 350px);
+    --box-height: min(7vw, 60px);
+            --player-width: min(40vw, 260px);
+            --player-height: min(48vw, 320px);
+            --problem-width: min(30vw, 200px);
+            --problem-height: min(38vw, 260px);
+/* Mobile Controls */
+.mobile-controls {
+    display: none;
 }
 
-html,body{
-Width:100%;
-Height:100%;
+@media (max-width: 700px) {
+    .mobile-controls {
+        display: flex;
+        position: fixed;
+        bottom: 2vh;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 200;
+        gap: 2vw;
+        width: 90vw;
+        justify-content: center;
+        pointer-events: none;
+    }
+    .mobile-controls button {
+        pointer-events: auto;
+        width: 16vw;
+        height: 16vw;
+        max-width: 70px;
+        max-height: 70px;
+        min-width: 44px;
+        min-height: 44px;
+        border-radius: 50%;
+        background: rgba(0,0,0,0.7);
+        color: #fff;
+        border: 2px solid #fff;
+        font-size: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+        margin: 0 1vw;
+        transition: background 0.2s, color 0.2s;
+        cursor: pointer;
+        user-select: none;
+    }
+    .mobile-controls button:active {
+        background: #fff;
+        color: #000;
+    }
 }
-.game{
-    position: relative;
-    background-repeat: no-repeat;
-    overflow: hidden;
-    background-size: cover;
-    background: url(/images/game_background_21-.jpg);
-    width: 100%;
+    --border-radius: 20px;
+    --border-thick: 4px;
+    --shadow: 2px 2px 8px rgba(0,0,0,0.5);
+    --main-padding: 0.5rem 1rem;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--main-font);
+}
+
+html, body {
+    width: 100vw;
     height: 100vh;
-    background-size: 100vw 100vh;
+    min-height: 100vh;
+    background: #000;
+    overflow-x: hidden;
 }
-.player{
-    left: 40px;
-    bottom: 120px;
+
+.game {
+    position: relative;
+    background: url(/images/game_background_21-.jpg) no-repeat center center/cover;
+    width: 100vw;
+    height: 100vh;
+    min-height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.player {
     position: absolute;
-    height: 250px;
-    width: 200px;
-   
+    left: 4vw;
+    bottom: 12vh;
+    width: var(--player-width);
+    height: var(--player-height);
+    z-index: 10;
+    transition: left 0.2s;
 }
-.gameover{
+
+.player img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    overflow: hidden;
+}
+
+.problem, .problem1 {
+    position: absolute;
+    width: var(--problem-width);
+    height: var(--problem-height);
+    right: 5vw;
+    bottom: 12vh;
+    z-index: 9;
+    transition: right 0.2s;
+}
+.problem1 {
+    bottom: 35vh;
     visibility: hidden;
 }
-.player img{
-    object-fit: cover;
+.problem img, .problem1 img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
     overflow: hidden;
-    height: 250px;
-    width: 200px;
-}
-.problem{
-    right: 50px;
-    bottom: 120px;
-    position: absolute;
-    height: 200px;
-    width: 150px;
-   
-}
-.problem img{
-    object-fit: cover;
-    overflow: hidden;
-    height: 200px;
-    width: 150px;
 }
 
-.animateplayer{
+.animateplayer {
     animation: playerr 1s linear;
 }
 
 @keyframes playerr {
-    0%{
-       bottom: 120px;
-    }
-   
-    50%{
-        bottom: 400px;
-    }
-    100%{
-        bottom: 120px;
-    }
-    
+    0% { bottom: 12vh; }
+    50% { bottom: 40vh; }
+    100% { bottom: 12vh; }
 }
-.dead{
+
+.dead {
     animation: dead 1s linear;
 }
 @keyframes dead {
-    0%{
-       bottom: 120px;
-    }
-    25%{
-        bottom: 300px;
-    }
-  
-    100%{
-        bottom: -300px;
-    }
-    
+    0% { bottom: 12vh; }
+    25% { bottom: 30vh; }
+    100% { bottom: -30vh; }
 }
-.aniproblem{
+
+.aniproblem {
     animation: aniproblem 3s linear infinite;
 }
-
 @keyframes aniproblem {
-    0%{
-        left: 100vw;
-     }
-    
-    
-     100%{
-         left: -10vw;
-     }
-    
+    0% { left: 100vw; }
+    100% { left: -10vw; }
 }
-.levelname h1{
-    font-family: "Kode Mono", monospace;
-    color: white;
-    font-optical-sizing: auto;
-    text-shadow: black 2px 2px 5px;
-   
-   
-    text-transform: uppercase;
-}
-.levelname{ 
-    box-shadow:black 2px 2px 5px ;
+
+.levelname {
+    box-shadow: var(--shadow);
     font-style: normal;
     position: absolute;
-    top: 10px;
-    left: 685px;
-    width: 200px;
-    height: 50px;
-    border: 5px solid white;
-    padding: 0px 10px;
+    top: 2vw;
+    left: 50%;
+    transform: translateX(-50%);
+    width: var(--level-width);
+    height: var(--level-height);
+    border: var(--border-thick) solid #fff;
+    padding: var(--main-padding);
+    background: rgba(0,0,0,0.5);
+    border-radius: var(--border-radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
 }
-.scoreCont h1{
-    font-family: "Kode Mono", monospace;
-    color: white;
-    font-optical-sizing: auto;
-    text-shadow: black 2px 2px 5px;
-   
-   
+.levelname h1 {
+    font-family: var(--main-font);
+    color: #fff;
+    text-shadow: 2px 2px 5px #000;
+    font-size: clamp(1.2rem, 3vw, 2.2rem);
     text-transform: uppercase;
+    margin: 0;
 }
-.box{ 
-    box-shadow:black 2px 2px 5px ;
+
+.box {
+    box-shadow: var(--shadow);
     font-style: normal;
     position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 350px;
-    height: 50px;
-    border: 5px solid white;
+    top: 2vw;
+    right: 2vw;
+    width: var(--box-width);
+    height: var(--box-height);
+    border: var(--border-thick) solid #fff;
+    background: rgba(0,0,0,0.5);
+    border-radius: var(--border-radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
 }
-.gameover {
-   
-   
+.scoreCont h1 {
+    font-family: var(--main-font);
+    color: #fff;
+    text-shadow: 2px 2px 5px #000;
+    font-size: clamp(1.2rem, 3vw, 2.2rem);
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.gameover, .gamestart {
+    visibility: hidden;
     z-index: 100;
     text-transform: uppercase;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    background: rgba(0,0,0,0.8);
+    border-radius: var(--border-radius);
+    padding: 2vw 4vw;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
-.gameover h1{
-    font-size: 5vw;
-    font-family: "Kode Mono", monospace;
-    color: white;
-    font-optical-sizing: auto;
-    text-shadow: black 2px 2px 5px;
-   
-   
+.gameover.visible, .gamestart.visible {
+    visibility: visible;
+}
+.gameover h1, .gamestart h1 {
+    font-size: clamp(2rem, 7vw, 5vw);
+    font-family: var(--main-font);
+    color: #fff;
+    text-shadow: 2px 2px 5px #000;
     text-transform: uppercase;
+    margin-bottom: 2vw;
 }
-.gameover button{
-    border-radius: 20px;
-    margin: 0px 130px;
-    background-color: black;
-    font-size: 1vw;
-    font-family: "Kode Mono", monospace;
-    color: white;
-    font-optical-sizing: auto;
-    text-shadow: black 2px 2px 5px;
-    padding: 10px 20px;
+.gameover button, .gamestart button {
+    border-radius: var(--border-radius);
+    margin: 0 auto;
+    background-color: #000;
+    font-size: clamp(1rem, 2vw, 1.5vw);
+    font-family: var(--main-font);
+    color: #fff;
+    text-shadow: 2px 2px 5px #000;
+    padding: 0.7em 2em;
     text-transform: uppercase;
-}
-.gameover button:hover{
-  
-    color: rgb(0, 0, 0);
-    background-color: rgb(255, 255, 255);
+    border: 2px solid #fff;
+    transition: background 0.2s, color 0.2s;
     cursor: pointer;
 }
-.gamestart{
-    visibility: hidden;
-}
-.gamestart{
-   
-   
-    z-index: 100;
-    text-transform: uppercase;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-.gamestart h1{
-    font-size: 5vw;
-    font-family: "Kode Mono", monospace;
-    color: white;
-    font-optical-sizing: auto;
-    text-shadow: black 2px 2px 5px;
-   
-   
-    text-transform: uppercase;
-}
-.gamestart button{
-    border-radius: 20px;
-    margin: 0px 160px;
-    background-color: black;
-    font-size: 1vw;
-    font-family: "Kode Mono", monospace;
-    color: white;
-    font-optical-sizing: auto;
-    text-shadow: black 2px 2px 5px;
-    padding: 10px 20px;
-    text-transform: uppercase;
-}
-.gamestart button:hover{
-  
-    color: rgb(0, 0, 0);
-    background-color: rgb(255, 255, 255);
-    cursor: pointer;
+.gameover button:hover, .gamestart button:hover {
+    color: #000;
+    background-color: #fff;
 }
 
-.problem1{
-    visibility: hidden;
-    right: 50px;
-    bottom: 350px;
-    position: absolute;
-    height: 200px;
-    width: 150px;
-   
+/* Responsive Design */
+@media (max-width: 900px) {
+    :root {
+        --level-width: min(40vw, 180px);
+        --box-width: min(70vw, 250px);
+        --player-width: min(40vw, 260px);
+        --player-height: min(48vw, 320px);
+        --problem-width: min(30vw, 200px);
+        --problem-height: min(38vw, 260px);
+    }
+    .levelname, .box {
+        top: 1vw;
+        padding: 0.2rem 0.5rem;
+    }
 }
-.problem1 img{
 
-    object-fit: cover;
-    overflow: hidden;
-    height: 200px;
-    width: 150px;
+@media (max-width: 600px) {
+    :root {
+        --level-width: 90vw;
+        --box-width: 90vw;
+        --player-width: 60vw;
+        --player-height: 70vw;
+        --problem-width: 45vw;
+        --problem-height: 55vw;
+        --border-thick: 2px;
+        --main-padding: 0.2rem 0.5rem;
+    }
+    .levelname, .box {
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+        width: 90vw;
+        min-width: 0;
+        font-size: 1rem;
+        padding: 0.2rem 0.5rem;
+    }
+    .box {
+        top: 10vw;
+    }
+    .player,  .problem1 {
+        left: 2vw !important;
+        right: 2vw !important;
+        bottom: 10vh !important;
+    }
+    .problem1 {
+        bottom: 25vh !important;
+       
+    }
+    .player{
+        left: -10vw !important;
+    }
+    .problem{
+         /* left: 0vw !important; */
+         right: -10vw !important;
+    }
+    .gameover, .gamestart {
+        padding: 4vw 2vw;
+    }
+}
+
+@media (max-width: 400px) {
+    :root {
+        --player-width: 70vw;
+        --player-height: 80vw;
+        --problem-width: 60vw;
+        --problem-height: 65vw;
+    }
+    .levelname, .box {
+        font-size: 0.9rem;
+        padding: 0.1rem 0.2rem;
+    }
 }
