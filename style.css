@@ -1,0 +1,240 @@
+@import url('https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&display=swap');
+
+
+ 
+*{ 
+Margin:0;
+Padding:0;
+Box-sizing: border-box;
+Font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+html,body{
+Width:100%;
+Height:100%;
+}
+.game{
+    position: relative;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    background-size: cover;
+    background: url(/images/game_background_21-.jpg);
+    width: 100%;
+    height: 100vh;
+    background-size: 100vw 100vh;
+}
+.player{
+    left: 40px;
+    bottom: 120px;
+    position: absolute;
+    height: 250px;
+    width: 200px;
+   
+}
+.gameover{
+    visibility: hidden;
+}
+.player img{
+    object-fit: cover;
+    overflow: hidden;
+    height: 250px;
+    width: 200px;
+}
+.problem{
+    right: 50px;
+    bottom: 120px;
+    position: absolute;
+    height: 200px;
+    width: 150px;
+   
+}
+.problem img{
+    object-fit: cover;
+    overflow: hidden;
+    height: 200px;
+    width: 150px;
+}
+
+.animateplayer{
+    animation: playerr 1s linear;
+}
+
+@keyframes playerr {
+    0%{
+       bottom: 120px;
+    }
+   
+    50%{
+        bottom: 400px;
+    }
+    100%{
+        bottom: 120px;
+    }
+    
+}
+.dead{
+    animation: dead 1s linear;
+}
+@keyframes dead {
+    0%{
+       bottom: 120px;
+    }
+    25%{
+        bottom: 300px;
+    }
+  
+    100%{
+        bottom: -300px;
+    }
+    
+}
+.aniproblem{
+    animation: aniproblem 3s linear infinite;
+}
+
+@keyframes aniproblem {
+    0%{
+        left: 100vw;
+     }
+    
+    
+     100%{
+         left: -10vw;
+     }
+    
+}
+.levelname h1{
+    font-family: "Kode Mono", monospace;
+    color: white;
+    font-optical-sizing: auto;
+    text-shadow: black 2px 2px 5px;
+   
+   
+    text-transform: uppercase;
+}
+.levelname{ 
+    box-shadow:black 2px 2px 5px ;
+    font-style: normal;
+    position: absolute;
+    top: 10px;
+    left: 685px;
+    width: 200px;
+    height: 50px;
+    border: 5px solid white;
+    padding: 0px 10px;
+}
+.scoreCont h1{
+    font-family: "Kode Mono", monospace;
+    color: white;
+    font-optical-sizing: auto;
+    text-shadow: black 2px 2px 5px;
+   
+   
+    text-transform: uppercase;
+}
+.box{ 
+    box-shadow:black 2px 2px 5px ;
+    font-style: normal;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 350px;
+    height: 50px;
+    border: 5px solid white;
+}
+.gameover {
+   
+   
+    z-index: 100;
+    text-transform: uppercase;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.gameover h1{
+    font-size: 5vw;
+    font-family: "Kode Mono", monospace;
+    color: white;
+    font-optical-sizing: auto;
+    text-shadow: black 2px 2px 5px;
+   
+   
+    text-transform: uppercase;
+}
+.gameover button{
+    border-radius: 20px;
+    margin: 0px 130px;
+    background-color: black;
+    font-size: 1vw;
+    font-family: "Kode Mono", monospace;
+    color: white;
+    font-optical-sizing: auto;
+    text-shadow: black 2px 2px 5px;
+    padding: 10px 20px;
+    text-transform: uppercase;
+}
+.gameover button:hover{
+  
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255);
+    cursor: pointer;
+}
+.gamestart{
+    visibility: hidden;
+}
+.gamestart{
+   
+   
+    z-index: 100;
+    text-transform: uppercase;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.gamestart h1{
+    font-size: 5vw;
+    font-family: "Kode Mono", monospace;
+    color: white;
+    font-optical-sizing: auto;
+    text-shadow: black 2px 2px 5px;
+   
+   
+    text-transform: uppercase;
+}
+.gamestart button{
+    border-radius: 20px;
+    margin: 0px 160px;
+    background-color: black;
+    font-size: 1vw;
+    font-family: "Kode Mono", monospace;
+    color: white;
+    font-optical-sizing: auto;
+    text-shadow: black 2px 2px 5px;
+    padding: 10px 20px;
+    text-transform: uppercase;
+}
+.gamestart button:hover{
+  
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255);
+    cursor: pointer;
+}
+
+.problem1{
+    visibility: hidden;
+    right: 50px;
+    bottom: 350px;
+    position: absolute;
+    height: 200px;
+    width: 150px;
+   
+}
+.problem1 img{
+
+    object-fit: cover;
+    overflow: hidden;
+    height: 200px;
+    width: 150px;
+}
